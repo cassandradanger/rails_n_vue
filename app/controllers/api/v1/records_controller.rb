@@ -1,4 +1,4 @@
-module API
+module Api
   module V1
     class RecordsController < ApplicationController
       before_action :authorize_access_request!
@@ -21,7 +21,7 @@ module API
         @record = current_user.records.build(record_params)
 
         if @record.save
-          render json: @record, status: :created, location: @record
+          render json: @record, status: :created
         else
           render json: @record.errors, status: :unprocessable_entity
         end

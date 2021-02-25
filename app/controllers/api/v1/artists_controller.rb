@@ -1,6 +1,5 @@
-module API
+module Api
   module V1
-        
     class ArtistsController < ApplicationController
       before_action :authorize_access_request!, except: [:show, :index]
       before_action :set_artist, only: [:show, :update, :destroy]
@@ -22,7 +21,7 @@ module API
         @artist = Artist.new(artist_params)
 
         if @artist.save
-          render json: @artist, status: :created, location: @artist
+          render json: @artist, status: :created
         else
           render json: @artist.errors, status: :unprocessable_entity
         end
@@ -48,9 +47,9 @@ module API
           @artist = Artist.find(params[:id])
         end
 
-        # Only allow a list of trusted parameters through.
+        # Only allow a trusted parameter "white list" through.
         def artist_params
-          params.require(:artist).permit(:name, :user_id)
+          params.require(:artist).permit(:name)
         end
     end
   end
